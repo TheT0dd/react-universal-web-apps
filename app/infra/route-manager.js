@@ -2,7 +2,7 @@ import FS from 'fs';
 
 import express from 'express';
 
-import React from 'react'
+import React from 'react';
 import {renderToString} from 'react-dom/server';
 import {match, RoutingContext} from 'react-router';
 
@@ -12,13 +12,13 @@ const routeManager = Object.assign({}, baseManager, {
     configureDevelopmentEnv(app) {
         const apiRouter = this.createApiRouter();
         const pagesRouter = this.createPageRouter();
-        app.use('/api', apiRouter);            
-        app.use('/', pagesRouter);            
+        app.use('/api', apiRouter);
+        app.use('/', pagesRouter);
     },
 
     createPageRouter() {
         const router = express.Router();
-        
+
         router.get('*', (req, res) => {
             res.render('index');
         });
@@ -32,7 +32,7 @@ const routeManager = Object.assign({}, baseManager, {
         router.get('/latest-bills', (req, res) => {
             this.retrieveLatestBills((err, content) => {
                 if(!err) {
-                    res.json(JSON.parse(content));                                    
+                    res.json(JSON.parse(content));
                 } else {
                     res.status(500).send();
                 }
